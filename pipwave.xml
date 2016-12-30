@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension version="2.5" type="plugin" group="vmpayment" method="upgrade">
+    <name>pipwave</name>
+    <creationDate>December 14 2016</creationDate>
+    <author>Pipwave Development Team</author>
+    <authorUrl>https://www.pipwave.com</authorUrl>
+    <copyright>Copyright (C) 2016 pipwave, a division of Dynamic Podium. All rights reserved</copyright>
+    <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+    <version>1.0</version>
+    <description>pipwave payment plugin for VirtueMart</description>
+    <media folder="images" destination="../images/stories/virtuemart/payment">
+        <filename>pipwave.png</filename>
+    </media>
+    <files>
+        <filename plugin="pipwave">pipwave.php</filename>
+        <folder>language</folder>
+        <folder>pipwave</folder>
+    </files>
+    <vmconfig>
+        <fields name="params">
+            <fieldset name="payment" addfieldpath="/plugins/vmpayment/pipwave/pipwave/fields">
+                <field type="getpipwave" default=""/>
+                <field type="vmtitle" description="" default="VMPAYMENT_PIPWAVE_HEADING_TITLE" />
+                <field type="text" name="apikey" description="VMPAYMENT_PIPWAVE_API_KEY_DESC" default="" label="VMPAYMENT_PIPWAVE_API_KEY_LBL" size="50" required="true" filter="integer" />
+                <field type="password" name="secretcode" description="VMPAYMENT_PIPWAVE_SECRET_CODE_DESC" default="" label="VMPAYMENT_PIPWAVE_SECRET_CODE_LBL" size="50" required="true" />
+                <field name="test_mode" type="radio" default="0" label="VMPAYMENT_PIPWAVE_TEST">
+                    <option value="0">COM_VIRTUEMART_NO</option>
+                    <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+                <field type="vmtitle" description="" default="VMPAYMENT_PIPWAVE_PAYMENT_STATUSES_LBL" />
+                <field type="note" name="paymentnote" label="" description="VMPAYMENT_PIPWAVE_PAYMENT_STATUSES_WARNING" size="50" />
+                <field name="status_pending" type="vmorderstate" scope="com_virtuemart" default="P" label="VMPAYMENT_PIPWAVE_PAYMENT_STATUSES_PENDING" />
+                <field name="status_failed" type="vmorderstate" scope="com_virtuemart" default="X" label="VMPAYMENT_PIPWAVE_PAYMENT_STATUSES_FAILED" />  
+                <field name="status_cancelled" type="vmorderstate" scope="com_virtuemart" default="X" label="VMPAYMENT_PIPWAVE_PAYMENT_STATUSES_CANCELLED" />
+                <field name="status_processing" type="vmorderstate" scope="com_virtuemart" default="C" label="VMPAYMENT_PIPWAVE_PAYMENT_STATUSES_PROCESSING" />
+                <field name="status_paid" type="vmorderstate" scope="com_virtuemart" default="C" label="VMPAYMENT_PIPWAVE_PAYMENT_STATUSES_PAID" />
+                <field name="status_disputed" type="vmorderstate" scope="com_virtuemart" default="D" label="VMPAYMENT_PIPWAVE_PAYMENT_STATUSES_DISPUTED" />                                
+                <field name="status_chargeback" type="vmorderstate" scope="com_virtuemart" default="D" label="VMPAYMENT_PIPWAVE_PAYMENT_STATUSES_CHARGEBACK" />                                
+                <field name="status_full_refunded" type="vmorderstate" scope="com_virtuemart" default="R" label="VMPAYMENT_PIPWAVE_PAYMENT_STATUSES_FULL_REFUND" />
+                <field name="status_partial_refunded" type="vmorderstate" scope="com_virtuemart" default="R" label="VMPAYMENT_PIPWAVE_PAYMENT_STATUSES_PARTIAL_REFUND" />
+                <field type="vmtitle" description="" default="VMPAYMENT_PIPWAVE_PAYMENT_PROCESSING_FEE" />
+                <field type="note" name="processing_fee_note" label="" description="VMPAYMENT_PIPWAVE_PROCESSING_FEE_GROUP_NOTE" size="50" />
+                <field type="getgroups" class="validate v1" name="getgroups1" label="VMPAYMENT_PIPWAVE_PAYMENT_PROCESSING_FEE_GROUP" description="VMPAYMENT_PIPWAVE_PROCESSING_FEE_GROUP_DESC" default="0"/>
+                <field type="text" name="ref_ID1" label="VMPAYMENT_PIPWAVE_PROCESSING_FEE_GROUP_LBL" default=""/>
+                <field type="getgroups" class="validate v2" name="getgroups2" label="VMPAYMENT_PIPWAVE_PAYMENT_PROCESSING_FEE_GROUP" description="VMPAYMENT_PIPWAVE_PROCESSING_FEE_GROUP_DESC" default="0"/>
+                <field type="text" name="ref_ID2" label="VMPAYMENT_PIPWAVE_PROCESSING_FEE_GROUP_LBL" default=""/>
+                <field type="getgroups" class="validate v3" name="getgroups3" label="VMPAYMENT_PIPWAVE_PAYMENT_PROCESSING_FEE_GROUP" description="VMPAYMENT_PIPWAVE_PROCESSING_FEE_GROUP_DESC" default="0"/>
+                <field type="text" name="ref_ID3" label="VMPAYMENT_PIPWAVE_PROCESSING_FEE_GROUP_LBL" default=""/>
+            </fieldset>            
+        </fields>
+    </vmconfig>
+</extension>
