@@ -1,5 +1,24 @@
 <?php
 
+/**
+ *
+ * pipwave payment plugin
+ *
+ * @author pipwave Development Team
+ * @version $Id$
+ * @package VirtueMart
+ * @subpackage payment
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright (C) 2016 pipwave, a division of Dynamic Podium. All rights reserved
+ * VirtueMart is free software. This version may have been modified pursuant
+ * to the GNU General Public License, and as distributed it includes or
+ * is derivative of works licensed under the GNU General Public License or
+ * other free or open source software licenses.
+ * See /administrator/components/com_virtuemart/COPYRIGHT.php for copyright notices and details.
+ *
+ * http://virtuemart.net
+ */
+
 defined('_JEXEC') or die('Direct access to ' . basename(__FILE__) . ' is not allowed.');
 
 if (!class_exists('vmPSPlugin'))

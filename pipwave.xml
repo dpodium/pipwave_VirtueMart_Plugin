@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension version="2.5" type="plugin" group="vmpayment" method="upgrade">
+<extension version="1.0.0" type="plugin" group="vmpayment" method="upgrade">
     <name>pipwave</name>
     <creationDate>December 14 2016</creationDate>
-    <author>Pipwave Development Team</author>
+    <author>pipwave Development Team</author>
+    <authorEmail>support@pipwave.com</authorEmail>
     <authorUrl>https://www.pipwave.com</authorUrl>
     <copyright>Copyright (C) 2016 pipwave, a division of Dynamic Podium. All rights reserved</copyright>
-    <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
-    <version>1.0</version>
+    <license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+    <version>1.0.0</version>
     <description>pipwave payment plugin for VirtueMart</description>
     <media folder="images" destination="../images/stories/virtuemart/payment">
         <filename>pipwave.png</filename>
