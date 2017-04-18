@@ -18,7 +18,6 @@
  *
  * http://virtuemart.net
  */
-
 defined('_JEXEC') or die('Direct access to ' . basename(__FILE__) . ' is not allowed.');
 
 if (!class_exists('vmPSPlugin'))
@@ -423,6 +422,10 @@ class plgVmPaymentPipwave extends vmPSPlugin {
             $transaction_status = (isset($post_data['transaction_status']) && !empty($post_data['transaction_status'])) ? $post_data['transaction_status'] : '';
             $payment_method = 'pipwave' . (!empty($post_data['payment_method_title']) ? (" - " . $post_data['payment_method_title']) : "");
             $signature = (isset($post_data['signature']) && !empty($post_data['signature'])) ? $post_data['signature'] : '';
+            // pipwave risk execution result
+            $pipwave_score = isset($post_data['pipwave_score']) ? $post_data['pipwave_score'] : '';
+            $rule_action = isset($post_data['rules_action']) ? $post_data['rules_action'] : '';
+            $message = isset($post_data['message']) ? $post_data['message'] : '';
             $signatureParam = array(
                 'timestamp' => $timestamp,
                 'pw_id' => $pw_id,
@@ -441,29 +444,39 @@ class plgVmPaymentPipwave extends vmPSPlugin {
             $note = array();
             $note[] = sprintf("Paid with: %s", $payment_method);
 
+            $extraNote = array();
+            if (!empty($rule_action) && !empty($pipwave_score)) {
+                $extraNote[] = sprintf("Rule Action: %s", $rule_action);
+                $extraNote[] = sprintf("pipwave Score: %s", $pipwave_score);
+            }
+            if (!empty($message)) {
+                $extraNote[] = sprintf("pipwave Message: %s", $message);
+            }
+            $extraNote = empty($extraNote) ? "" : "\n" . implode("\n", $extraNote);
+
             switch ($transaction_status) {
                 case 5: // pending
-                    $note[] = "Payment Status: Pending$with_warning_msg";
+                    $note[] = "Payment Status: Pending$with_warning_msg" . $extraNote;
                     $status = $method->status_pending;
                     break;
                 case 1: // failed
-                    $note[] = "Payment Status: Failed$with_warning_msg";
+                    $note[] = "Payment Status: Failed$with_warning_msg" . $extraNote;
                     $status = $method->status_failed;
                     break;
                 case 2: // cancelled
-                    $note[] = "Payment Status: Cancelled$with_warning_msg";
+                    $note[] = "Payment Status: Cancelled$with_warning_msg" . $extraNote;
                     $status = $method->status_cancelled;
                     break;
                 case 10: // complete
-                    $note[] = "Payment Status: Completed$with_warning_msg";
+                    $note[] = "Payment Status: Completed$with_warning_msg" . $extraNote;
                     $status = $method->status_paid;
                     break;
                 case 20: // refunded
-                    $note[] = "Payment Status: Refunded$with_warning_msg";
+                    $note[] = "Payment Status: Refunded$with_warning_msg" . $extraNote;
                     $status = $method->status_full_refunded;
                     break;
                 case 25: // partial refunded
-                    $note[] = "Payment Status: Refunded$with_warning_msg";
+                    $note[] = "Payment Status: Refunded$with_warning_msg" . $extraNote;
                     $status = $method->status_partial_refunded;
                     break;
                 case -1: // signature mismatch
