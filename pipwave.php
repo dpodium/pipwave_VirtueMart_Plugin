@@ -217,7 +217,7 @@ class plgVmPaymentPipwave extends vmPSPlugin {
         );
 
         //Set item info to post
-        foreach ($cart->products as $key => $product) {
+        /*foreach ($cart->products as $key => $product) {
             $post_variables['item_info'][] = array(
                 "name" => $product->product_name,
                 "sku" => $product->product_sku,
@@ -227,7 +227,7 @@ class plgVmPaymentPipwave extends vmPSPlugin {
                 "quantity" => $product->quantity,
                 "currency_code" => $this->getCurrency($product->prices['product_currency'], 'currency_code_3')
             );
-        }
+        }*/
         //Subtotal info (order)
         $post_variables['subtotal_info'] = array(
             0 => array(
