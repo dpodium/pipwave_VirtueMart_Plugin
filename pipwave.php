@@ -159,6 +159,8 @@ class plgVmPaymentPipwave extends vmPSPlugin {
             'api_key' => $method->apikey,
             'txn_id' => $order['details']['BT']->order_number,
             'amount' => $totalInPaymentCurrency['value'],
+            'shipping_amount' => number_format($order['details']['BT']->order_shipment, 2, '.', '') + number_format($order['details']['BT']->order_shipment_tax, 2, '.', ''),
+            'handling_amount' => -number_format($order['details']['BT']->order_discountAmount, 2, '.', ''),
             'currency_code' => $currency_code_3,
             'short_description' => 'Payment for Order#' . $order['details']['BT']->order_number,
             'payment_info' => $payment_info,
@@ -217,42 +219,40 @@ class plgVmPaymentPipwave extends vmPSPlugin {
         );
 
         //Set item info to post
-        /*foreach ($cart->products as $key => $product) {
+        foreach ($cart->products as $key => $product) {
             $post_variables['item_info'][] = array(
                 "name" => $product->product_name,
                 "sku" => $product->product_sku,
-                "amount" => $product->prices['product_price'],
-                "tax_amount" => $product->prices['taxAmount'],
+                "amount" => number_format($product->prices['salesPrice'], 2, '.', ''),
                 "description" => $product->product_s_desc,
                 "quantity" => $product->quantity,
-                "currency_code" => $this->getCurrency($product->prices['product_currency'], 'currency_code_3')
             );
-        }*/
+        }
         //Subtotal info (order)
         $post_variables['subtotal_info'] = array(
             0 => array(
                 "name" => "order_total",
-                "value" => $order['details']['BT']->order_total
+                "value" => number_format($order['details']['BT']->order_total, 2, '.', '')
             ),
             1 => array(
                 "name" => "order_subtotal",
-                "value" => $order['details']['BT']->order_subtotal
+                "value" => number_format($order['details']['BT']->order_subtotal, 2, '.', '')
             ),
             2 => array(
                 "name" => "order_tax",
-                "value" => $order['details']['BT']->order_tax,
+                "value" => number_format($order['details']['BT']->order_tax, 2, '.', ''),
             ),
             3 => array(
                 "name" => "order_shipment",
-                "value" => $order['details']['BT']->order_shipment,
+                "value" => number_format($order['details']['BT']->order_shipment, 2, '.', ''),
             ),
             4 => array(
                 "name" => "order_shipment_tax",
-                "value" => $order['details']['BT']->order_shipment_tax,
+                "value" => number_format($order['details']['BT']->order_shipment_tax, 2, '.', ''),
             ),
             5 => array(
                 "name" => "order_discountAmount",
-                "value" => $order['details']['BT']->order_discountAmount,
+                "value" => number_format($order['details']['BT']->order_discountAmount, 2, '.', ''),
             ),
         );
 
